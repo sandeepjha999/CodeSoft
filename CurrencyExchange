@@ -1,0 +1,59 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class currency {
+
+    
+    private static final Map<String, Double> exchangeRates = new HashMap<>();
+    private static double value;
+
+    static {
+        // Initialize exchange rates
+        exchangeRates.put("USD", 1.0);      // 1 USD to USD
+        exchangeRates.put("EUR", 0.85);     // 1 USD to EUR
+        exchangeRates.put("GBP", 0.76);     // 1 USD to GBP
+        
+        exchangeRates.put("INR", 86.76);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        System.out.print("Enter currency to convert from (e.g., USD, INR,EUR, GBP): ");
+        String fromCurrency = scanner.next().toUpperCase();
+
+        System.out.print("Enter currency to convert to (e.g.,  USD,INR, EUR, GBP): ");
+        String toCurrency = scanner.next().toUpperCase();
+
+        // Convert currency
+        double result = convertCurrency(amount, fromCurrency, toCurrency);
+
+        // Display result
+        System.out.printf("%.2f %s = %.2f %s%n", amount, fromCurrency, result, toCurrency);
+
+        scanner.close();
+    }
+
+    public static double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+        
+        if (!exchangeRates.containsKey(fromCurrency) || !exchangeRates.containsKey(toCurrency)) {
+            throw new IllegalArgumentException("Unsupported currency.");
+        }
+
+        
+        double amountInUSD = (fromCurrency.equals("USD")) ? amount : amount / exchangeRates.get(fromCurrency);
+
+        
+        return (toCurrency.equals("USD")) ? amountInUSD : amountInUSD * exchangeRates.get(toCurrency);
+    }
+
+    public static Map<String, Double> getExchangerates() {
+        return exchangeRates;
+    }
+}
+

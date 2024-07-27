@@ -1,0 +1,139 @@
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.util.*;
+class Atm{
+    float balance=12344;
+    int PIN=6265;
+    public  void  mains(){
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("           STATE BANK OF INDIA          ");
+        System.out.println(" WELCOMES YOU");
+        System.out.println();
+        System.out.print( "PLEASE ENTER YOUR PIN:" +" ");
+        int pin= scanner.nextInt();
+        if(pin==PIN){
+            menu();
+        }
+        else {
+            System.out.println("Enter PIN is Worng");
+            System.out.println("-------------------------------------------------------------");
+            mains();
+        }
+    }
+    public void menu(){
+        System.out.println("          STATE BANK OF INDIA         ");
+        System.out.println(  "    ");
+
+        System.out.println("-----SELECT TRANSACTION-----");
+        System.out.println(" Enter the following input");
+        System.out.print("1:: DEPOSIT"+ "         ");
+        System.out.println("2:: CASH WITHDRAWAL");
+        System.out.print("3:: PIN CHANGE "+ "     ");
+        System.out.print("::4 BALANCE INQUIRY");
+        System.out.println("   ");
+        System.out.print("::::: 5 EXIST    "+"      ");
+        System.out.print(" 6 CANCEL:::::");
+        Scanner scanner= new Scanner(System.in);
+        System.out.println();
+        int input=scanner.nextInt();
+        if(input==1){
+            deposit();
+        } else if (input==2) {
+            widrwal();
+
+        } else if (input==3) {
+            pinchange();
+        } else if (input==4) {
+            bal();
+
+        } else if (input==5) {
+            menu();
+
+        } else if (input==6) {
+            return;
+
+        } else {
+            System.out.println("PLEASE ENTER THE VALID INPUT");
+            menu();
+
+        }
+        System.out.println("------------------------------------------------------------------");
+    }
+    public void deposit(){
+        System.out.println("           STATE BANK OF INDIA         ");
+        System.out.println( "            ");
+        float current=balance;
+        float finalb= 0;
+        System.out.println(" :: YOUR CURRENT BALANCE IS "+ " "+ current);
+        System.out.println("----- ENTER THE AMOUNT TO DEPOSIT-----");
+        Scanner scanner= new Scanner(System.in);
+        float amount= scanner.nextFloat();
+        finalb=current+amount;
+        System.out.println("   Transation Completed");
+        System.out.println(" ");
+        System.out.println(" FINAL BALANCE IS "+ finalb);
+        balance=finalb;
+
+        System.out.println("--------------------------------------------------------------------");
+        menu();
+    }
+    public  void widrwal(){
+        System.out.println("           STATE BANK OF INDIA         ");
+        System.out.println();
+
+        System.out.println(" :: YOUR CURRENT BALANCE IS "+ " "+ balance);
+        System.out.print("Enter The Amount To Widrwal:"+" ");
+        Scanner scanner=new Scanner(System.in);
+        float amount= scanner.nextFloat();
+        System.out.println();
+        if(amount<=balance){
+        balance-=amount;
+        System.out.println("YOUR REMAINING BALANCE IS "+ balance);
+            System.out.println("----------------------------------------------------------");
+        menu();}
+        else {
+            System.out.println("Please Enter the valid amount:");
+            widrwal();
+        }
+
+
+
+    }
+    public  void pinchange(){
+        System.out.println("               STATE BANK OF INDIA             ");
+        System.out.println();
+        Scanner scanner= new Scanner(System.in);
+        System.out.print("Enter Your new PIN"+" ");
+        int newpin= scanner.nextInt();
+        System.out.println();
+        System.out.print(" Confirm Your PIN"+"");
+        int cnfpin= scanner.nextInt();
+        if(newpin==cnfpin){
+            System.out.println("PIN CHANGED SUCESSFULLY");
+            PIN=newpin;
+            System.out.println("----------------------------------------------------------");
+            menu();
+        }else {
+            System.out.println("-------ENTER PIN DOES NOT MATCH------");
+            pinchange();
+        }
+        //System.out.println("-----------------------------------------------------------");
+
+    }
+    public  void bal(){
+        System.out.println("           STATE BANK OF INDIA       ");
+        System.out.println();
+        System.out.println("YOUR CURRENT BALANCE IS :"+ balance);
+        System.out.println("----------------------------------------------------------");
+        menu();
+
+    }
+}
+
+
+
+public class ProjectATm {
+    public static  void main(String[] args){
+        Atm obj=new Atm();
+        obj.mains();
+    }
+}
